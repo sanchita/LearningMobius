@@ -11,6 +11,7 @@ object LoginLogic {
     return when (event) {
       is EmailChanged -> next(model.withEmail(event.email))
       is PasswordChanged -> next(model.withPassword(event.password))
+      is LoginAttempted -> next(model, setOf(LoginNetworkEffect))
       else -> TODO()
     }
   }

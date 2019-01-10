@@ -1,5 +1,5 @@
 package me.saket.mobius.login
 
-class LoginEffect {
+sealed class LoginEffect
 
-}
+object LoginNetworkEffect : LoginEffect()
