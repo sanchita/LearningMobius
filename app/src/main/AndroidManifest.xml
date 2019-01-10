@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="me.saket.baseandroidproject">
+  package="me.saket.mobius">
 
   <application
     android:allowBackup="true"

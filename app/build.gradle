@@ -11,7 +11,7 @@ android {
   compileSdkVersion versions.compileSdk
 
   defaultConfig {
-    applicationId "me.saket.baseandroidproject"
+    applicationId "me.saket.mobius"
     minSdkVersion versions.minSdk
     targetSdkVersion versions.compileSdk
     versionCode 1
@@ -50,4 +50,12 @@ dependencies {
   implementation "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
   implementation "com.jakewharton.rxbinding2:rxbinding:$versions.rxBindings"
   implementation "com.jakewharton.rxrelay2:rxrelay:$versions.rxRelay"
+
+  implementation "com.spotify.mobius:mobius-core:1.2.0"
+  testImplementation "com.spotify.mobius:mobius-test:1.2.0"
+  implementation "com.spotify.mobius:mobius-rx2:1.2.0"      // only for RxJava 2 support
+  implementation "com.spotify.mobius:mobius-android:1.2.0"  // only for Android support
+  implementation "com.spotify.mobius:mobius-extras:1.2.0"   // utilities for common patterns
+
+  implementation "io.arrow-kt:arrow-core:0.8.2"
 }
