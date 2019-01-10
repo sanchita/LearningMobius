@@ -10,6 +10,8 @@ object LoginLogic {
   ): Next<LoginModel, LoginEffect> {
     return when (event) {
       is EmailChanged -> next(model.withEmail(event.email))
+      is PasswordChanged -> next(model.withPassword(event.password))
+      else -> TODO()
     }
   }
 }
