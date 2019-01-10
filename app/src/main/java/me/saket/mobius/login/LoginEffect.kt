@@ -2,4 +2,4 @@ package me.saket.mobius.login
 
 sealed class LoginEffect
 
-object LoginNetworkEffect : LoginEffect()
+object AttemptLoginNetworkEffect : LoginEffect()

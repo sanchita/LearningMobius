@@ -47,8 +47,8 @@ class LoginLogicTest {
         .`when`(LoginAttempted)
         .then(
             assertThatNext(
-                hasModel(LoginModel.BLANK.withEmail("saket@saket.me").withPassword("password")),
-                hasEffects(LoginNetworkEffect as LoginEffect)
+                hasModel(LoginModel.BLANK.withEmail("saket@saket.me").withPassword("password").attemptLogin()),
+                hasEffects(AttemptLoginNetworkEffect as LoginEffect)
             )
         )
   }
