@@ -13,13 +13,14 @@ class LoginLogicTest {
   @Test
   fun `when email is entered, then update state with email address`() {
     val email = "saket@saket.me"
+    val blankModel = LoginModel.BLANK
 
     updateSpec
-        .given(LoginModel.BLANK)
+        .given(blankModel)
         .`when`(EmailChanged(email))
         .then(
             assertThatNext(
-                hasModel(LoginModel.BLANK.withEmail(email)),
+                hasModel(blankModel.withEmail(email)),
                 hasNoEffects()
             )
         )
@@ -28,13 +29,14 @@ class LoginLogicTest {
   @Test
   fun `when password is entered, then update state with password`() {
     val password = "password"
+    val blankModel = LoginModel.BLANK
 
     updateSpec
-        .given(LoginModel.BLANK)
+        .given(blankModel)
         .`when`(PasswordChanged(password))
         .then(
             assertThatNext(
-                hasModel(LoginModel.BLANK.withPassword(password)),
+                hasModel(blankModel.withPassword(password)),
                 hasNoEffects()
             )
         )
@@ -42,13 +44,57 @@ class LoginLogicTest {
 
   @Test
   fun `when login is attempted, then make a login network call`() {
+    val email = "saket@saket.me"
+    val password = "password"
+    val validModel = LoginModel.BLANK
+        .withEmail(email)
+        .withPassword(password)
+
     updateSpec
-        .given(LoginModel.BLANK.withEmail("saket@saket.me").withPassword("password"))
-        .`when`(LoginAttempted)
+        .given(validModel)
+        .`when`(LoginAttempted(email, password))
         .then(
             assertThatNext(
-                hasModel(LoginModel.BLANK.withEmail("saket@saket.me").withPassword("password").attemptLogin()),
-                hasEffects(AttemptLoginNetworkEffect as LoginEffect)
+                hasModel(validModel.attemptLogin()),
+                hasEffects(AttemptLogin(email, password) as LoginEffect)
+            )
+        )
+  }
+
+  @Test
+  fun `when attempted login succeeds, then save the token and go to home screen`() {
+    val attemptingLoginModel = LoginModel.BLANK
+        .withEmail("saket@saket.me")
+        .withPassword("password")
+        .attemptLogin()
+
+    val token = "token"
+
+    updateSpec
+        .given(attemptingLoginModel)
+        .`when`(LoginSucceeded(token))
+        .then(
+            assertThatNext(
+                hasModel(attemptingLoginModel.loginSucceeded()),
+                hasEffects(SaveToken(token) as LoginEffect, GoToHome)
+            )
+        )
+  }
+
+  @Test
+  fun `when attempted login fails, then show a notification`() {
+    val attemptingLoginModel = LoginModel.BLANK
+        .withEmail("saket@saket.me")
+        .withPassword("password")
+        .attemptLogin()
+
+    updateSpec
+        .given(attemptingLoginModel)
+        .`when`(LoginFailed)
+        .then(
+            assertThatNext(
+                hasModel(attemptingLoginModel.loginFailed()),
+                hasEffects(ShowLoginFailureNotification as LoginEffect)
             )
         )
   }

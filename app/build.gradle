@@ -56,6 +56,7 @@ dependencies {
   implementation "com.spotify.mobius:mobius-rx2:1.2.0"      // only for RxJava 2 support
   implementation "com.spotify.mobius:mobius-android:1.2.0"  // only for Android support
   implementation "com.spotify.mobius:mobius-extras:1.2.0"   // utilities for common patterns
+  testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
 
   implementation "io.arrow-kt:arrow-core:0.8.2"
 }

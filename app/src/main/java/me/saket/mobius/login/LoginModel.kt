@@ -26,4 +26,10 @@ data class LoginModel(
 
   fun attemptLogin(): LoginModel =
       copy(loginAsyncOp = AsyncOp.IN_FLIGHT)
+
+  fun loginSucceeded(): LoginModel =
+      copy(loginAsyncOp = AsyncOp.SUCCEEDED)
+
+  fun loginFailed(): LoginModel =
+      copy(loginAsyncOp = AsyncOp.FAILED)
 }
